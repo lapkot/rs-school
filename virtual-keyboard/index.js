@@ -165,21 +165,14 @@ const onUp = (key) => {
     changeKeyboardView(language, isCapsLock, isShift);
   }
 
-  Object.entries(keyboard).forEach(([btnKey]) => {
-    const button = document.querySelector(`[data-key="${btnKey}"]`);
-    button.classList.remove('click-effect-btn');
-  });
+  const button = document.querySelector(`[data-key="${key}"]`);
+  button.classList.remove('click-effect-btn');
 };
 
 document.addEventListener('mouseup', (event) => {
   const btn = event.target.closest('button');
   if (btn?.dataset?.key) {
     onUp(btn.dataset.key);
-  } else {
-    Object.entries(keyboard).forEach(([btnKey]) => {
-      const button = document.querySelector(`[data-key="${btnKey}"]`);
-      button.classList.remove('click-effect-btn');
-    });
   }
 });
 
@@ -199,8 +192,4 @@ keyboardEl.addEventListener('mousedown', (event) => {
 document.addEventListener('keydown', (event) => {
   event.preventDefault();
   onDown(event.code, event.ctrlKey, event.altKey, event.metaKey);
-});
-
-document.addEventListener('contextmenu', (event) => {
-  event.preventDefault();
 });
